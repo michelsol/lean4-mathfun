@@ -98,3 +98,12 @@ example {n : ℕ} (h : n ≠ 0) : g n = 2 ^ n + (-1 : ℤ) ^n := by
     . simp [*]
     . simp_all [ih1, ih2]
       ring
+
+
+
+
+-- lazier proof of the initial example using heavy duty tactics
+example (n : ℕ) : ∑ i in (range (n + 1)), i = n * (n + 1) / 2 := by
+  induction n with
+  | zero => simp
+  | succ n ih => rw [sum_range_succ, ih]; ring; omega
